@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Budget Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    input[type="text"], input[type="number"], button {
+      margin: 5px;
+      padding: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Budget Tracker</h1>
+
+  <div>
+    <label for="expenseName">Expense Name:</label>
+    <input type="text" id="expenseName">
+    <label for="expenseAmount">Expense Amount:</label>
+    <input type="number" id="expenseAmount">
+    <button onclick="addExpense()">Add Expense</button>
+  </div>
+
+  <div>
+    <h2>Expenses</h2>
+    <ul id="expenseList"></ul>
+    <p>Total Expenses: <span id="totalExpenses">0</span></p>
+  </div>
+
+  <script>
+    let expenses = [];
+
+    function addExpense() {
+      const name = document.getElementById('expenseName').value;
+      const amount = parseInt(document.getElementById('expenseAmount').value);
+      expenses.push({ name, amount });
+      updateExpenses();
+    }
+
+    function updateExpenses() {
+      const expenseList = document.getElementById('expenseList');
+      const totalExpenses = document.getElementById('totalExpenses');
+      let total = 0;
+      expenseList.innerHTML = '';
+      expenses.forEach(expense => {
+        const li = document.createElement('li');
+        li.textContent = `${expense.name}: $${expense.amount}`;
+        expenseList.appendChild(li);
+        total += expense.amount;
+      });
+      totalExpenses.textContent = total;
+    }
+  </script>
+</body>
+</html>
